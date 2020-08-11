@@ -156,6 +156,25 @@ public class StylesHelper
         return null;
     }
 
+    /**
+     * Create {@link BoldProperties} from inline style.
+     *
+     * @param style
+     * @return
+     */
+    public static BoldProperties createBoldProperties( String style )
+    {
+        Map<String, String> stylesMap = StylesHelper.parse( style );
+        if ( !stylesMap.isEmpty() )
+        {
+            BoldProperties properties = new BoldProperties();
+            processContainerproperties( properties, stylesMap );
+            properties.setBold( true );
+            return properties;
+        }
+        return null;
+    }
+
     private static void processContainerproperties( ContainerProperties properties, Map<String, String> stylesMap )
     {
         // page-break-before

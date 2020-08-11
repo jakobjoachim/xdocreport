@@ -34,6 +34,7 @@ import fr.opensagres.xdocreport.document.odt.template.ODTContextHelper;
 import fr.opensagres.xdocreport.document.preprocessor.sax.BufferedElement;
 import fr.opensagres.xdocreport.document.textstyling.AbstractDocumentHandler;
 import fr.opensagres.xdocreport.document.textstyling.IDocumentHandler.TextLocation;
+import fr.opensagres.xdocreport.document.textstyling.properties.BoldProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.HeaderProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListItemProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListProperties;
@@ -101,6 +102,12 @@ public class ODTDocumentHandler
         throws IOException
     {
         internalStartSpan( styleGen.getBoldStyleName(), true );
+    }
+
+    public void startBold( BoldProperties properties )
+            throws IOException
+    {
+        internalStartSpan( styleGen.getTextStyleName( properties ), true );
     }
 
     public void endBold()

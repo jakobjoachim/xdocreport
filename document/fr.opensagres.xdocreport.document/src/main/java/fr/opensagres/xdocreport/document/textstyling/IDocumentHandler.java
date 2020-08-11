@@ -26,6 +26,7 @@ package fr.opensagres.xdocreport.document.textstyling;
 
 import java.io.IOException;
 
+import fr.opensagres.xdocreport.document.textstyling.properties.BoldProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.HeaderProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListItemProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListProperties;
@@ -42,7 +43,7 @@ public interface IDocumentHandler
     extends ITransformResult
 {
 
-    public enum TextLocation
+    enum TextLocation
     {
         Before, Body, End;
     }
@@ -76,6 +77,12 @@ public interface IDocumentHandler
      */
     void startBold()
         throws IOException;
+
+    /**
+     * Start bold style.
+     */
+    void startBold( BoldProperties boldProperties )
+            throws IOException;
 
     /**
      * End bold style.

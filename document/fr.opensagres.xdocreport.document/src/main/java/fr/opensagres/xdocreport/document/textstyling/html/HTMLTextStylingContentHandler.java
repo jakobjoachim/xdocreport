@@ -26,6 +26,7 @@ package fr.opensagres.xdocreport.document.textstyling.html;
 
 import java.io.IOException;
 
+import fr.opensagres.xdocreport.document.textstyling.properties.BoldProperties;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -174,10 +175,8 @@ public class HTMLTextStylingContentHandler
             if ( STRONG_ELT.equals( name ) || B_ELT.equals( name ) )
             {
                 // Bold
-                documentHandler.startBold();
-                // <span>
-                SpanProperties properties = StylesHelper.createSpanProperties( attributes.getValue( STYLE_ATTR ) );
-                documentHandler.startSpan( properties );
+                BoldProperties properties = StylesHelper.createBoldProperties( attributes.getValue( STYLE_ATTR ) );
+                documentHandler.startBold( properties );
             }
             else if ( EM_ELT.equals( name ) || I_ELT.equals( name ) )
             {

@@ -27,6 +27,7 @@ package fr.opensagres.xdocreport.document.textstyling.wiki.gwiki;
 import java.io.IOException;
 
 import fr.opensagres.xdocreport.document.textstyling.AbstractDocumentHandler;
+import fr.opensagres.xdocreport.document.textstyling.properties.BoldProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.HeaderProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListItemProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListProperties;
@@ -62,6 +63,12 @@ public class HTMLDocumentHandler
 
     public void startBold()
         throws IOException
+    {
+        super.write( "<strong>" );
+    }
+
+    public void startBold( BoldProperties boldProperties )
+            throws IOException
     {
         super.write( "<strong>" );
     }

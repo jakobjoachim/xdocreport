@@ -32,6 +32,7 @@ import fr.opensagres.xdocreport.document.docx.preprocessor.sax.numbering.Numberi
 import fr.opensagres.xdocreport.document.docx.template.DocxContextHelper;
 import fr.opensagres.xdocreport.document.preprocessor.sax.BufferedElement;
 import fr.opensagres.xdocreport.document.textstyling.AbstractDocumentHandler;
+import fr.opensagres.xdocreport.document.textstyling.properties.BoldProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.Color;
 import fr.opensagres.xdocreport.document.textstyling.properties.ContainerProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.HeaderProperties;
@@ -145,6 +146,11 @@ public class DocxDocumentHandler
     public void startBold()
     {
         this.bolding = true;
+    }
+
+    public void startBold( BoldProperties boldProperties )
+    {
+        this.spansStack.push( boldProperties );
     }
 
     public void endBold()
