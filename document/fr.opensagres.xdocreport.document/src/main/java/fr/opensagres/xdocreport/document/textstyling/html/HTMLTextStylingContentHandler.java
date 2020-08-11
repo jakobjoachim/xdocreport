@@ -175,6 +175,9 @@ public class HTMLTextStylingContentHandler
             {
                 // Bold
                 documentHandler.startBold();
+                // <span>
+                SpanProperties properties = StylesHelper.createSpanProperties( attributes.getValue( STYLE_ATTR ) );
+                documentHandler.startSpan( properties );
             }
             else if ( EM_ELT.equals( name ) || I_ELT.equals( name ) )
             {

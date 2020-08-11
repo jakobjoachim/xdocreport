@@ -127,6 +127,21 @@ public class DocxDocumentHandlerTestCase
     }
 
     @Test
+    public void testBoldWithColorStyle() throws Exception
+    {
+        IContext context = new MockContext();
+
+        ITextStylingTransformer formatter = HTMLTextStylingTransformer.INSTANCE;
+        IDocumentHandler handler = new DocxDocumentHandler( null, context, "word/document.xml" );
+        formatter.transform( "<b style=\"color: rgb(255, 0, 0);\">text</b>", handler );
+
+        Assert.assertEquals( "", handler.getTextBefore() );
+        Assert.assertEquals( "<w:r><w:rPr><w:b /><w:color w:val=\"FF0000\"/></w:rPr><w:t xml:space=\"preserve\" >text</w:t></w:r>",
+                handler.getTextBody() );
+        Assert.assertEquals( "", handler.getTextEnd() );
+    }
+
+    @Test
     public void testBoldWithStrong()
         throws Exception
     {
