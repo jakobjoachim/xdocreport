@@ -28,13 +28,18 @@ import java.io.IOException;
 
 import fr.opensagres.xdocreport.document.textstyling.properties.BoldProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.HeaderProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.ItalicsProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListItemProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ParagraphProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.SpanProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.StrikeProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.SubscriptProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.SuperscriptProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableCellProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableRowProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.UnderlineProperties;
 
 /**
  * Handler to build a document.
@@ -97,6 +102,12 @@ public interface IDocumentHandler
         throws IOException;
 
     /**
+     * Start italics style.
+     */
+    void startItalics(ItalicsProperties italicsProperties)
+        throws IOException;
+
+    /**
      * End italics style.
      */
     void endItalics()
@@ -106,6 +117,12 @@ public interface IDocumentHandler
      * Start underline style.
      */
     void startUnderline()
+        throws IOException;
+
+    /**
+     * Start underline style.
+     */
+    void startUnderline(UnderlineProperties underlineProperties)
         throws IOException;
 
     /**
@@ -121,6 +138,12 @@ public interface IDocumentHandler
         throws IOException;
 
     /**
+     * Start Strike style.
+     */
+    void startStrike(StrikeProperties strikeProperties)
+        throws IOException;
+
+    /**
      * End Strike style.
      */
     void endStrike()
@@ -133,6 +156,12 @@ public interface IDocumentHandler
         throws IOException;
 
     /**
+     * Start Subscript style.
+     */
+    void startSubscript(SubscriptProperties subscriptProperties)
+        throws IOException;
+
+    /**
      * End Subscript style.
      */
     void endSubscript()
@@ -142,6 +171,12 @@ public interface IDocumentHandler
      * Start Superscript style.
      */
     void startSuperscript()
+        throws IOException;
+
+    /**
+     * Start Superscript style.
+     */
+    void startSuperscript(SuperscriptProperties superscriptProperties)
         throws IOException;
 
     /**

@@ -78,7 +78,7 @@ public class StylesHelper
         if ( !stylesMap.isEmpty() )
         {
             ParagraphProperties properties = new ParagraphProperties();
-            processContainerproperties(properties, stylesMap);
+            processContainerProperties(properties, stylesMap);
             return properties;
         }
         return null;
@@ -96,7 +96,7 @@ public class StylesHelper
         if ( !stylesMap.isEmpty() )
         {
             HeaderProperties properties = new HeaderProperties();
-            processContainerproperties( properties, stylesMap );
+            processContainerProperties( properties, stylesMap );
             return properties;
         }
         return null;
@@ -114,7 +114,7 @@ public class StylesHelper
         if ( !stylesMap.isEmpty() )
         {
             ListItemProperties properties = new ListItemProperties();
-            processContainerproperties( properties, stylesMap );
+            processContainerProperties( properties, stylesMap );
             return properties;
         }
         return null;
@@ -132,7 +132,7 @@ public class StylesHelper
         if ( !stylesMap.isEmpty() )
         {
             ListProperties properties = new ListProperties();
-            processContainerproperties( properties, stylesMap );
+            processContainerProperties( properties, stylesMap );
             return properties;
         }
         return null;
@@ -150,7 +150,7 @@ public class StylesHelper
         if ( !stylesMap.isEmpty() )
         {
             SpanProperties properties = new SpanProperties();
-            processContainerproperties( properties, stylesMap );
+            processContainerProperties( properties, stylesMap );
             return properties;
         }
         return null;
@@ -165,17 +165,106 @@ public class StylesHelper
     public static BoldProperties createBoldProperties( String style )
     {
         Map<String, String> stylesMap = StylesHelper.parse( style );
+        BoldProperties properties = new BoldProperties();
         if ( !stylesMap.isEmpty() )
         {
-            BoldProperties properties = new BoldProperties();
-            processContainerproperties( properties, stylesMap );
-            properties.setBold( true );
-            return properties;
+            processContainerProperties( properties, stylesMap );
         }
-        return null;
+        properties.setBold( true );
+        return properties;
     }
 
-    private static void processContainerproperties( ContainerProperties properties, Map<String, String> stylesMap )
+    /**
+     * Create {@link ItalicsProperties} from inline style.
+     *
+     * @param style
+     * @return
+     */
+    public static ItalicsProperties createItalicsProperties( String style )
+    {
+        Map<String, String> stylesMap = StylesHelper.parse( style );
+        ItalicsProperties properties = new ItalicsProperties();
+        if ( !stylesMap.isEmpty() )
+        {
+            processContainerProperties( properties, stylesMap );
+        }
+        properties.setItalic(  true );
+        return properties;
+    }
+
+    /**
+     * Create {@link StrikeProperties} from inline style.
+     *
+     * @param style
+     * @return
+     */
+    public static StrikeProperties createStrikeProperties( String style )
+    {
+        Map<String, String> stylesMap = StylesHelper.parse( style );
+        StrikeProperties properties = new StrikeProperties();
+        if ( !stylesMap.isEmpty() )
+        {
+            processContainerProperties( properties, stylesMap );
+        }
+        properties.setStrike(  true );
+        return properties;
+    }
+
+    /**
+     * Create {@link SubscriptProperties} from inline style.
+     *
+     * @param style
+     * @return
+     */
+    public static SubscriptProperties createSubscriptProperties( String style )
+    {
+        Map<String, String> stylesMap = StylesHelper.parse( style );
+        SubscriptProperties properties = new SubscriptProperties();
+        if ( !stylesMap.isEmpty() )
+        {
+            processContainerProperties( properties, stylesMap );
+        }
+        properties.setSubscript( true );
+        return properties;
+    }
+
+    /**
+     * Create {@link SuperscriptProperties} from inline style.
+     *
+     * @param style
+     * @return
+     */
+    public static SuperscriptProperties createSuperscriptProperties( String style )
+    {
+        Map<String, String> stylesMap = StylesHelper.parse( style );
+        SuperscriptProperties properties = new SuperscriptProperties();
+        if ( !stylesMap.isEmpty() )
+        {
+            processContainerProperties( properties, stylesMap );
+        }
+        properties.setSuperscript( true );
+        return properties;
+    }
+
+    /**
+     * Create {@link UnderlineProperties} from inline style.
+     *
+     * @param style
+     * @return
+     */
+    public static UnderlineProperties createUnderlineProperties( String style )
+    {
+        Map<String, String> stylesMap = StylesHelper.parse( style );
+        UnderlineProperties properties = new UnderlineProperties();
+        if ( !stylesMap.isEmpty() )
+        {
+            processContainerProperties( properties, stylesMap );
+        }
+        properties.setUnderline( true );
+        return properties;
+    }
+
+    private static void processContainerProperties( ContainerProperties properties, Map<String, String> stylesMap )
     {
         // page-break-before
         properties.setPageBreakBefore( false );

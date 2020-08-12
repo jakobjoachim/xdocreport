@@ -36,14 +36,19 @@ import fr.opensagres.xdocreport.document.textstyling.properties.BoldProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.Color;
 import fr.opensagres.xdocreport.document.textstyling.properties.ContainerProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.HeaderProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.ItalicsProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListItemProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ParagraphProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.SpanProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.StrikeProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.SubscriptProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.SuperscriptProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableCellProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableRowProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TextAlignment;
+import fr.opensagres.xdocreport.document.textstyling.properties.UnderlineProperties;
 import fr.opensagres.xdocreport.template.IContext;
 
 import java.io.IOException;
@@ -162,6 +167,12 @@ public class DocxDocumentHandler
     {
         this.italicsing = true;
     }
+    
+    public void startItalics( ItalicsProperties italicsProperties )
+        throws IOException
+    {
+        this.spansStack.push( italicsProperties );
+    }
 
     public void endItalics()
     {
@@ -172,6 +183,12 @@ public class DocxDocumentHandler
         throws IOException
     {
         this.underlining = true;
+    }
+    
+    public void startUnderline( UnderlineProperties underlineProperties )
+        throws IOException
+    {
+        this.spansStack.push( underlineProperties );
     }
 
     public void endUnderline()
@@ -185,6 +202,12 @@ public class DocxDocumentHandler
     {
         this.striking = true;
     }
+    
+    public void startStrike( StrikeProperties strikeProperties )
+        throws IOException
+    {
+        this.spansStack.push( strikeProperties );   
+    }
 
     public void endStrike()
         throws IOException
@@ -197,6 +220,12 @@ public class DocxDocumentHandler
     {
     	this.subscripting = true;
     }
+    
+    public void startSubscript( SubscriptProperties subscriptProperties )
+        throws IOException
+    {
+        this.spansStack.push( subscriptProperties );   
+    }
 
     public void endSubscript()
         throws IOException
@@ -208,6 +237,13 @@ public class DocxDocumentHandler
         throws IOException
     {
     	this.superscripting = true;
+    }
+    
+    @Override
+    public void startSuperscript( SuperscriptProperties superscriptProperties )
+        throws IOException
+    {
+        this.spansStack.push( superscriptProperties );   
     }
 
     public void endSuperscript()

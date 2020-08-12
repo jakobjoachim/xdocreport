@@ -29,13 +29,18 @@ import java.io.IOException;
 import fr.opensagres.xdocreport.document.textstyling.AbstractDocumentHandler;
 import fr.opensagres.xdocreport.document.textstyling.properties.BoldProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.HeaderProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.ItalicsProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListItemProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ParagraphProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.SpanProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.StrikeProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.SubscriptProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.SuperscriptProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableCellProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableRowProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.UnderlineProperties;
 
 /**
  * Basic Document handler implementation to build html fragment content.
@@ -85,6 +90,12 @@ public class HTMLDocumentHandler
         super.write( "<i>" );
     }
 
+    public void startItalics(ItalicsProperties italicsProperties)
+                    throws IOException
+    {
+        super.write( "<i>" );
+    }
+
     public void endItalics()
         throws IOException
     {
@@ -93,6 +104,12 @@ public class HTMLDocumentHandler
 
     public void startUnderline()
         throws IOException
+    {
+        super.write( "<u>" );
+    }
+
+    public void startUnderline(UnderlineProperties underlineProperties)
+                    throws IOException
     {
         super.write( "<u>" );
     }
@@ -106,6 +123,12 @@ public class HTMLDocumentHandler
     //@Override
     public void startStrike()
         throws IOException
+    {
+        super.write( "<strike>" );
+    }
+
+    public void startStrike(StrikeProperties strikeProperties)
+                    throws IOException
     {
         super.write( "<strike>" );
     }
@@ -124,6 +147,12 @@ public class HTMLDocumentHandler
         super.write( "<sub>" );
     }
 
+    public void startSubscript(SubscriptProperties subscriptProperties)
+                    throws IOException
+    {
+        super.write( "<sub>" );
+    }
+
     public void endSubscript()
         throws IOException
     {
@@ -133,6 +162,12 @@ public class HTMLDocumentHandler
     //@Override
     public void startSuperscript()
         throws IOException
+    {
+        super.write( "<sup>" );
+    }
+
+    public void startSuperscript(SuperscriptProperties superscriptProperties)
+                    throws IOException
     {
         super.write( "<sup>" );
     }

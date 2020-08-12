@@ -33,13 +33,18 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import fr.opensagres.xdocreport.document.textstyling.IDocumentHandler;
 import fr.opensagres.xdocreport.document.textstyling.properties.HeaderProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.ItalicsProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListItemProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ListProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ParagraphProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.SpanProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.StrikeProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.SubscriptProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.SuperscriptProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableCellProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableRowProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.UnderlineProperties;
 
 /**
  * SAX content handler used to parse HTML content and call the right method of {@link IDocumentHandler} according the
@@ -181,27 +186,32 @@ public class HTMLTextStylingContentHandler
             else if ( EM_ELT.equals( name ) || I_ELT.equals( name ) )
             {
                 // Italic
-                documentHandler.startItalics();
+                ItalicsProperties properties = StylesHelper.createItalicsProperties( attributes.getValue( STYLE_ATTR ) );
+                documentHandler.startItalics(properties);
             }
             else if ( U_ELT.equals( name ) )
             {
                 // Underline
-                documentHandler.startUnderline();
+                UnderlineProperties properties = StylesHelper.createUnderlineProperties( attributes.getValue( STYLE_ATTR ) );
+                documentHandler.startUnderline(properties);
             }
             else if ( STRIKE_ELT.equals( name ) || S_ELT.equals( name ) )
             {
                 // Strike
-                documentHandler.startStrike();
+                StrikeProperties properties = StylesHelper.createStrikeProperties( attributes.getValue( STYLE_ATTR ) );
+                documentHandler.startStrike(properties);
             }
             else if ( SUB_ELT.equals( name ) )
             {
                 // Subscript
-                documentHandler.startSubscript();
+                SubscriptProperties properties = StylesHelper.createSubscriptProperties( attributes.getValue( STYLE_ATTR ) );
+                documentHandler.startSubscript(properties);
             }
             else if ( SUP_ELT.equals( name ) )
             {
                 // Superscript
-                documentHandler.startSuperscript();
+                SuperscriptProperties properties = StylesHelper.createSuperscriptProperties( attributes.getValue( STYLE_ATTR ) );
+                documentHandler.startSuperscript(properties);
             }
             else if ( UL_ELT.equals( name ) )
             {

@@ -127,7 +127,7 @@ public class DocxDocumentHandlerTestCase
     }
 
     @Test
-    public void testBoldWithColorStyle() throws Exception
+    public void testBoldPlusStyle() throws Exception
     {
         IContext context = new MockContext();
 
@@ -207,6 +207,21 @@ public class DocxDocumentHandlerTestCase
                              handler.getTextBody() );
         Assert.assertEquals( "", handler.getTextEnd() );
     }
+    
+    @Test
+    public void testItalicPlusStyle() throws Exception
+    {
+        IContext context = new MockContext();
+
+        ITextStylingTransformer formatter = HTMLTextStylingTransformer.INSTANCE;
+        IDocumentHandler handler = new DocxDocumentHandler( null, context, "word/document.xml" );
+        formatter.transform( "<i style=\"color: rgb(255, 1, 2);\">text</i>", handler );
+
+        Assert.assertEquals( "", handler.getTextBefore() );
+        Assert.assertEquals( "<w:r><w:rPr><w:i /><w:color w:val=\"FF0102\"/></w:rPr><w:t xml:space=\"preserve\" >text</w:t></w:r>",
+                handler.getTextBody() );
+        Assert.assertEquals( "", handler.getTextEnd() );
+    }
 
     @Test
     public void testUnderline()
@@ -222,6 +237,21 @@ public class DocxDocumentHandlerTestCase
         Assert.assertEquals( "", handler.getTextBefore() );
         Assert.assertEquals( "<w:r><w:rPr><w:u w:val=\"single\" /></w:rPr><w:t xml:space=\"preserve\" >text</w:t></w:r>",
                              handler.getTextBody() );
+        Assert.assertEquals( "", handler.getTextEnd() );
+    }
+    
+    @Test
+    public void testUnderlinePlusStyle() throws Exception
+    {
+        IContext context = new MockContext();
+
+        ITextStylingTransformer formatter = HTMLTextStylingTransformer.INSTANCE;
+        IDocumentHandler handler = new DocxDocumentHandler( null, context, "word/document.xml" );
+        formatter.transform( "<u style=\"color: rgb(255, 1, 2);\">text</u>", handler );
+
+        Assert.assertEquals( "", handler.getTextBefore() );
+        Assert.assertEquals( "<w:r><w:rPr><w:u w:val=\"single\" /><w:color w:val=\"FF0102\"/></w:rPr><w:t xml:space=\"preserve\" >text</w:t></w:r>",
+                handler.getTextBody() );
         Assert.assertEquals( "", handler.getTextEnd() );
     }
 
@@ -259,6 +289,86 @@ public class DocxDocumentHandlerTestCase
         Assert.assertEquals( "", handler.getTextEnd() );
     }
 
+    @Test
+    public void testStrikePlusStyle() throws Exception
+    {
+        IContext context = new MockContext();
+
+        ITextStylingTransformer formatter = HTMLTextStylingTransformer.INSTANCE;
+        IDocumentHandler handler = new DocxDocumentHandler( null, context, "word/document.xml" );
+        formatter.transform( "<strike style=\"color: rgb(255, 1, 2);\">text</strike>", handler );
+
+        Assert.assertEquals( "", handler.getTextBefore() );
+        Assert.assertEquals( "<w:r><w:rPr><w:strike /><w:color w:val=\"FF0102\"/></w:rPr><w:t xml:space=\"preserve\" >text</w:t></w:r>",
+                handler.getTextBody() );
+        Assert.assertEquals( "", handler.getTextEnd() );
+    }
+    
+    @Test
+    public void testSubscript()
+        throws Exception
+    {
+        IContext context = new MockContext();
+        BufferedElement parent = null;
+
+        ITextStylingTransformer formatter = HTMLTextStylingTransformer.INSTANCE;
+        IDocumentHandler handler = new DocxDocumentHandler( parent, context, "word/document.xml" );
+        formatter.transform( "<sub>text</sub>", handler );
+
+        Assert.assertEquals( "", handler.getTextBefore() );
+        Assert.assertEquals( "<w:r><w:rPr><w:vertAlign w:val=\"subscript\"/></w:rPr><w:t xml:space=\"preserve\" >text</w:t></w:r>",
+                             handler.getTextBody() );
+        Assert.assertEquals( "", handler.getTextEnd() );
+    }
+
+    @Test
+    public void testSubscriptPlusStyle() throws Exception
+    {
+        IContext context = new MockContext();
+        
+        ITextStylingTransformer formatter = HTMLTextStylingTransformer.INSTANCE;
+        IDocumentHandler handler = new DocxDocumentHandler( null, context, "word/document.xml" );
+        formatter.transform( "<sub style=\"color: rgb(255, 1, 2);\">text</sub>", handler );
+        
+        Assert.assertEquals( "", handler.getTextBefore() );
+        Assert.assertEquals( "<w:r><w:rPr><w:vertAlign w:val=\"subscript\"/><w:color w:val=\"FF0102\"/></w:rPr><w:t xml:space=\"preserve\" >text</w:t></w:r>",
+                             handler.getTextBody() );
+        Assert.assertEquals( "", handler.getTextEnd() );
+    }
+    
+    @Test
+    public void testSuperscript()
+                    throws Exception
+    {
+        IContext context = new MockContext();
+        BufferedElement parent = null;
+        
+        ITextStylingTransformer formatter = HTMLTextStylingTransformer.INSTANCE;
+        IDocumentHandler handler = new DocxDocumentHandler( parent, context, "word/document.xml" );
+        formatter.transform( "<sup>text</sup>", handler );
+        
+        Assert.assertEquals( "", handler.getTextBefore() );
+        Assert.assertEquals( "<w:r><w:rPr><w:vertAlign w:val=\"superscript\"/></w:rPr><w:t xml:space=\"preserve\" >text</w:t></w:r>",
+                             handler.getTextBody() );
+        Assert.assertEquals( "", handler.getTextEnd() );
+    }
+    
+    @Test
+    public void testSuperscriptPlusStyle() throws Exception
+    {
+        IContext context = new MockContext();
+        
+        ITextStylingTransformer formatter = HTMLTextStylingTransformer.INSTANCE;
+        IDocumentHandler handler = new DocxDocumentHandler( null, context, "word/document.xml" );
+        formatter.transform( "<sup style=\"color: rgb(255, 1, 2);\">text</sup>", handler );
+        
+        Assert.assertEquals( "", handler.getTextBefore() );
+        Assert.assertEquals( "<w:r><w:rPr><w:vertAlign w:val=\"superscript\"/><w:color w:val=\"FF0102\"/></w:rPr><w:t xml:space=\"preserve\" >text</w:t></w:r>",
+                             handler.getTextBody() );
+        Assert.assertEquals( "", handler.getTextEnd() );
+    }
+    
+    
     @Test
     public void testHyperlinkByUsingXDocReport_HyperlinkStyle()
         throws Exception
