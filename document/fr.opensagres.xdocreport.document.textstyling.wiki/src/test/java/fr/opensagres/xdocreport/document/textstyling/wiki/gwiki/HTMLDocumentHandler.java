@@ -24,14 +24,14 @@
  */
 package fr.opensagres.xdocreport.document.textstyling.wiki.gwiki;
 
-import java.io.IOException;
-
 import fr.opensagres.xdocreport.document.textstyling.AbstractDocumentHandler;
 import fr.opensagres.xdocreport.document.textstyling.properties.ContainerProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableProperties;
 
+import java.io.IOException;
+
 /**
- * Basic Document handler implementation to build html fragment content.
+ * Basic Document handler implementation to build html fragment content for unit tests
  */
 public class HTMLDocumentHandler
     extends AbstractDocumentHandler
@@ -52,82 +52,6 @@ public class HTMLDocumentHandler
     {
         // super.write("</body>");
         // super.write("</html>");
-    }
-
-    public void startBold()
-        throws IOException
-    {
-        super.write( "<strong>" );
-    }
-
-    public void endBold()
-        throws IOException
-    {
-        super.write( "</strong>" );
-    }
-
-    public void startItalics()
-        throws IOException
-    {
-        super.write( "<i>" );
-    }
-
-    public void endItalics()
-        throws IOException
-    {
-        super.write( "</i>" );
-    }
-
-    public void startUnderline()
-        throws IOException
-    {
-        super.write( "<u>" );
-    }
-
-    public void endUnderline()
-        throws IOException
-    {
-        super.write( "</u>" );
-    }
-
-    //@Override
-    public void startStrike()
-        throws IOException
-    {
-        super.write( "<strike>" );
-    }
-
-    public void endStrike()
-        throws IOException
-    {
-        super.write( "</strike>" );
-
-    }
-
-    //@Override
-    public void startSubscript()
-        throws IOException
-    {
-        super.write( "<sub>" );
-    }
-
-    public void endSubscript()
-        throws IOException
-    {
-        super.write( "</sub>" );
-    }
-
-    //@Override
-    public void startSuperscript()
-        throws IOException
-    {
-        super.write( "<sup>" );
-    }
-
-    public void endSuperscript()
-        throws IOException
-    {
-        super.write( "</sup>" );
     }
 
     public void startListItem( ContainerProperties properties )
@@ -185,7 +109,8 @@ public class HTMLDocumentHandler
     public void startSpan( ContainerProperties properties )
         throws IOException
     {
-        super.write( "<span>" );
+        // this code is just for one test so we write the properties into the span
+        super.write( "<span " + getStyle( properties ) + ">" );
     }
 
     public void endSpan()
@@ -271,5 +196,22 @@ public class HTMLDocumentHandler
         throws IOException
     {
         super.write( "</td>" );
+    }
+
+    private String getStyle(ContainerProperties containerProperties) {
+        StringBuilder builder = new StringBuilder();
+        if (containerProperties.isBold()) {
+            builder.append( "font-weight: bold;" );
+        }
+        if (containerProperties.isItalic()) {
+            builder.append( "font-style: italic;" );
+        }
+        if (containerProperties.isUnderline()) {
+            builder.append( "text-decoration: underline;" );
+        }
+        if (builder.toString().isEmpty()) {
+            return "";
+        }
+        return "style=\"" + builder.toString() + "\"";
     }
 }

@@ -76,13 +76,12 @@ public class StylesHelper
     public static ContainerProperties createProperties( String style, ContainerType type )
     {
         Map<String, String> stylesMap = StylesHelper.parse( style );
+        ContainerProperties properties = new ContainerProperties( type );
         if ( !stylesMap.isEmpty() )
         {
-            ContainerProperties properties = new ContainerProperties( type );
             processContainerproperties(properties, stylesMap);
-            return properties;
         }
-        return null;
+        return properties;
     }
 
     private static void processContainerproperties( ContainerProperties properties, Map<String, String> stylesMap )

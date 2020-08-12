@@ -24,16 +24,15 @@
  */
 package fr.opensagres.xdocreport.document.textstyling.html;
 
-import java.io.IOException;
-
+import fr.opensagres.xdocreport.document.textstyling.IDocumentHandler;
 import fr.opensagres.xdocreport.document.textstyling.properties.ContainerProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.ContainerType;
+import fr.opensagres.xdocreport.document.textstyling.properties.TableProperties;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import fr.opensagres.xdocreport.document.textstyling.IDocumentHandler;
-import fr.opensagres.xdocreport.document.textstyling.properties.TableProperties;
+import java.io.IOException;
 
 /**
  * SAX content handler used to parse HTML content and call the right method of {@link IDocumentHandler} according the
@@ -165,32 +164,44 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
             if ( STRONG_ELT.equals( name ) || B_ELT.equals( name ) )
             {
                 // Bold
-                documentHandler.startBold();
+                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                properties.setBold( true );
+                documentHandler.startSpan( properties );
             }
             else if ( EM_ELT.equals( name ) || I_ELT.equals( name ) )
             {
                 // Italic
-                documentHandler.startItalics();
+                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                properties.setItalic( true );
+                documentHandler.startSpan(properties);
             }
             else if ( U_ELT.equals( name ) )
             {
                 // Underline
-                documentHandler.startUnderline();
+                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                properties.setUnderline( true );
+                documentHandler.startSpan(properties);
             }
             else if ( STRIKE_ELT.equals( name ) || S_ELT.equals( name ) )
             {
                 // Strike
-                documentHandler.startStrike();
+                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                properties.setStrike( true );
+                documentHandler.startSpan(properties);
             }
             else if ( SUB_ELT.equals( name ) )
             {
                 // Subscript
-                documentHandler.startSubscript();
+                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                properties.setSubscript( true );
+                documentHandler.startSpan(properties);
             }
             else if ( SUP_ELT.equals( name ) )
             {
                 // Superscript
-                documentHandler.startSuperscript();
+                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                properties.setSuperscript( true );
+                documentHandler.startSpan(properties);
             }
             else if ( UL_ELT.equals( name ) )
             {
@@ -317,32 +328,32 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
             if ( STRONG_ELT.equals( name ) || B_ELT.equals( name ) )
             {
                 // Bold
-                documentHandler.endBold();
+                documentHandler.endSpan();
             }
             else if ( EM_ELT.equals( name ) || I_ELT.equals( name ) )
             {
                 // Italic
-                documentHandler.endItalics();
+                documentHandler.endSpan();
             }
             else if ( U_ELT.equals( name ) )
             {
                 // Underline
-                documentHandler.endUnderline();
+                documentHandler.endSpan();
             }
             else if ( STRIKE_ELT.equals( name ) || S_ELT.equals( name ) )
             {
                 // Strike
-                documentHandler.endStrike();
+                documentHandler.endSpan();
             }
             else if ( SUB_ELT.equals( name ) )
             {
                 // Subscript
-                documentHandler.endSubscript();
+                documentHandler.endSpan();
             }
             else if ( SUP_ELT.equals( name ) )
             {
                 // Superscript
-                documentHandler.endSuperscript();
+                documentHandler.endSpan();
             }
             else if ( UL_ELT.equals( name ) )
             {

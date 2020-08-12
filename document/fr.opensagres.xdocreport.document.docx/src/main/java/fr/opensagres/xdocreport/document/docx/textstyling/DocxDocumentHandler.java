@@ -49,19 +49,6 @@ import java.util.Stack;
 public class DocxDocumentHandler
     extends AbstractDocumentHandler
 {
-
-    private boolean bolding;
-
-    private boolean italicsing;
-
-    private boolean underlining;
-
-    private boolean striking;
-
-    private boolean subscripting;
-
-    private boolean superscripting;
-
     private Stack<ContainerProperties> paragraphsStack;
 
     private Stack<ContainerProperties> spansStack;
@@ -96,12 +83,6 @@ public class DocxDocumentHandler
 
     public void startDocument()
     {
-        this.bolding = false;
-        this.italicsing = false;
-        this.underlining = false;
-        this.striking = false;
-        this.subscripting = false;
-        this.superscripting = false;
         this.paragraphsStack = new Stack<ContainerProperties>();
         this.spansStack = new Stack<ContainerProperties>();
         this.addLineBreak = 0;
@@ -119,7 +100,6 @@ public class DocxDocumentHandler
     {
         if ( !paragraphsStack.isEmpty() )
         {
-            paragraphsStack.size();
             for ( int i = 0; i < paragraphsStack.size(); i++ )
             {
                 endParagraph();
@@ -135,74 +115,6 @@ public class DocxDocumentHandler
         {
             endParagraph();
         }
-    }
-
-    public void startBold()
-    {
-        this.bolding = true;
-    }
-
-    public void endBold()
-    {
-        this.bolding = false;
-    }
-
-    public void startItalics()
-    {
-        this.italicsing = true;
-    }
-
-    public void endItalics()
-    {
-        this.italicsing = false;
-    }
-
-    public void startUnderline()
-        throws IOException
-    {
-        this.underlining = true;
-    }
-
-    public void endUnderline()
-        throws IOException
-    {
-        this.underlining = false;
-    }
-
-    public void startStrike()
-        throws IOException
-    {
-        this.striking = true;
-    }
-
-    public void endStrike()
-        throws IOException
-    {
-        this.striking = false;
-    }
-
-    public void startSubscript()
-        throws IOException
-    {
-    	this.subscripting = true;
-    }
-
-    public void endSubscript()
-        throws IOException
-    {
-    	this.subscripting = false;
-    }
-
-    public void startSuperscript()
-        throws IOException
-    {
-    	this.superscripting = true;
-    }
-
-    public void endSuperscript()
-        throws IOException
-    {
-    	this.superscripting = false;
     }
 
     @Override
@@ -221,41 +133,22 @@ public class DocxDocumentHandler
         else
         {
             startParagraphIfNeeded();
-            boolean bold = bolding;
-            boolean italic = italicsing;
-            boolean underline = underlining;
-            boolean strike = striking;
-            boolean subscript = subscripting;
-            boolean superscript = superscripting;
+            boolean bold = false;
+            boolean italic = false;
+            boolean underline = false;
+            boolean strike = false;
+            boolean subscript = false;
+            boolean superscript = false;
             Color color = null;
             ContainerProperties properties = getCurrentProperties();
             if ( properties != null )
             {
-                // override properties declared in the span.
-                if ( !bold )
-                {
-                    bold = properties.isBold();
-                }
-                if ( !italic )
-                {
-                    italic = properties.isItalic();
-                }
-                if ( !underline )
-                {
-                    underline = properties.isUnderline();
-                }
-                if ( !strike )
-                {
-                    strike = properties.isStrike();
-                }
-                if ( !subscript )
-                {
-                	subscript = properties.isSubscript();
-                }
-                if ( !superscript )
-                {
-                	superscript = properties.isSuperscript();
-                }
+                bold = properties.isBold();
+                italic = properties.isItalic();
+                underline = properties.isUnderline();
+                strike = properties.isStrike();
+                subscript = properties.isSubscript();
+                superscript = properties.isSuperscript();
                 color = properties.getColor();
             }
             super.write( "<w:r>" );
@@ -539,17 +432,8 @@ public class DocxDocumentHandler
     }
 
     public void startSpan( ContainerProperties properties )
-        throws IOException
     {
         spansStack.push( properties );
-        // startParagraphIfNeeded();
-        // super.write( "<w:r>" );
-        // processRunProperties( false, properties.isBold(), properties.isItalic(), properties.isUnderline(),
-        // properties.isStrike() );
-        // super.write( "<w:t xml:space=\"preserve\" >" );
-        // super.write( content );
-        // super.write( "</w:t>" );
-        // super.write( "</w:r>" );
     }
 
     /**
@@ -576,8 +460,8 @@ public class DocxDocumentHandler
         return null;
     }
 
+    @Override
     public void endSpan()
-        throws IOException
     {
         spansStack.pop();
     }

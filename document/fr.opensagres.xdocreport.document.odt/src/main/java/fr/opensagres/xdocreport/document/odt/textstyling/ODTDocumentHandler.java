@@ -24,11 +24,6 @@
  */
 package fr.opensagres.xdocreport.document.odt.textstyling;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 import fr.opensagres.xdocreport.core.utils.StringUtils;
 import fr.opensagres.xdocreport.document.odt.template.ODTContextHelper;
 import fr.opensagres.xdocreport.document.preprocessor.sax.BufferedElement;
@@ -36,6 +31,11 @@ import fr.opensagres.xdocreport.document.textstyling.AbstractDocumentHandler;
 import fr.opensagres.xdocreport.document.textstyling.properties.ContainerProperties;
 import fr.opensagres.xdocreport.document.textstyling.properties.TableProperties;
 import fr.opensagres.xdocreport.template.IContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class ODTDocumentHandler
     extends AbstractDocumentHandler
@@ -88,79 +88,6 @@ public class ODTDocumentHandler
             }
             paragraphsStack.clear();
         }
-    }
-
-    public void startBold()
-        throws IOException
-    {
-        internalStartSpan( styleGen.getBoldStyleName(), true );
-    }
-
-    public void endBold()
-        throws IOException
-    {
-        internalEndSpan();
-    }
-
-    public void startItalics()
-        throws IOException
-    {
-        internalStartSpan( styleGen.getItalicStyleName(), true );
-    }
-
-    public void endItalics()
-        throws IOException
-    {
-        internalEndSpan();
-    }
-
-    public void startUnderline()
-        throws IOException
-    {
-        internalStartSpan( styleGen.getUnderlineStyleName(), true );
-    }
-
-    public void endUnderline()
-        throws IOException
-    {
-        internalEndSpan();
-    }
-
-    public void startStrike()
-        throws IOException
-    {
-        internalStartSpan( styleGen.getStrikeStyleName(), true );
-    }
-
-    public void endStrike()
-        throws IOException
-    {
-        internalEndSpan();
-    }
-
-    public void startSubscript()
-        throws IOException
-    {
-        internalStartSpan( styleGen.getSubscriptStyleName(), true );
-    }
-
-    public void endSubscript()
-        throws IOException
-    {
-        internalEndSpan();
-    }
-
-    public void startSuperscript()
-        throws IOException
-    {
-        internalStartSpan( styleGen.getSuperscriptStyleName(), true );
-
-    }
-
-    public void endSuperscript()
-        throws IOException
-    {
-        internalEndSpan();
     }
 
     @Override

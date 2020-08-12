@@ -401,7 +401,7 @@ public class ODTDefaultStylesGenerator
         return dynamicStyles.toString();
     }
 
-    //@Override
+    @Override
     public String getTextStyleName( ContainerProperties properties )
     {
         if ( properties == null )

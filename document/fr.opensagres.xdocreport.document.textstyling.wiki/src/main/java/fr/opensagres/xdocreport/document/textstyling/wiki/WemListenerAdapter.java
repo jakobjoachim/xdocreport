@@ -1,34 +1,29 @@
 /**
  * Copyright (C) 2011-2015 The XDocReport Team <xdocreport@googlegroups.com>
- *
+ * <p>
  * All rights reserved.
- *
- * Permission is hereby granted, free  of charge, to any person obtaining
- * a  copy  of this  software  and  associated  documentation files  (the
- * "Software"), to  deal in  the Software without  restriction, including
- * without limitation  the rights to  use, copy, modify,  merge, publish,
- * distribute,  sublicense, and/or sell  copies of  the Software,  and to
- * permit persons to whom the Software  is furnished to do so, subject to
- * the following conditions:
- *
- * The  above  copyright  notice  and  this permission  notice  shall  be
- * included in all copies or substantial portions of the Software.
- *
- * THE  SOFTWARE IS  PROVIDED  "AS  IS", WITHOUT  WARRANTY  OF ANY  KIND,
- * EXPRESS OR  IMPLIED, INCLUDING  BUT NOT LIMITED  TO THE  WARRANTIES OF
- * MERCHANTABILITY,    FITNESS    FOR    A   PARTICULAR    PURPOSE    AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE,  ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * <p>
+ * Permission is hereby granted, free  of charge, to any person obtaining a  copy  of this  software  and  associated
+ * documentation files  (the "Software"), to  deal in  the Software without  restriction, including without limitation
+ * the rights to  use, copy, modify,  merge, publish, distribute,  sublicense, and/or sell  copies of  the Software, and
+ * to permit persons to whom the Software  is furnished to do so, subject to the following conditions:
+ * <p>
+ * The  above  copyright  notice  and  this permission  notice  shall  be included in all copies or substantial portions
+ * of the Software.
+ * <p>
+ * THE  SOFTWARE IS  PROVIDED  "AS  IS", WITHOUT  WARRANTY  OF ANY  KIND, EXPRESS OR  IMPLIED, INCLUDING  BUT NOT
+ * LIMITED  TO THE  WARRANTIES OF MERCHANTABILITY,    FITNESS    FOR    A   PARTICULAR    PURPOSE    AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,  ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package fr.opensagres.xdocreport.document.textstyling.wiki;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Logger;
-
+import fr.opensagres.xdocreport.core.logging.LogUtils;
+import fr.opensagres.xdocreport.document.textstyling.IDocumentHandler;
+import fr.opensagres.xdocreport.document.textstyling.html.StylesHelper;
 import fr.opensagres.xdocreport.document.textstyling.properties.ContainerProperties;
+import fr.opensagres.xdocreport.document.textstyling.properties.ContainerType;
 import org.wikimodel.wem.EmptyWemListener;
 import org.wikimodel.wem.IWemConstants;
 import org.wikimodel.wem.WikiFormat;
@@ -36,14 +31,14 @@ import org.wikimodel.wem.WikiParameters;
 import org.wikimodel.wem.WikiReference;
 import org.wikimodel.wem.WikiStyle;
 
-import fr.opensagres.xdocreport.core.logging.LogUtils;
-import fr.opensagres.xdocreport.document.textstyling.IDocumentHandler;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Wiki Event Model Adaptor to call methods of {@link IDocumentHandler}.
  */
-public class WemListenerAdapter
-    extends EmptyWemListener
+public class WemListenerAdapter extends EmptyWemListener
 {
 
     private static final Logger LOGGER = LogUtils.getLogger( WemListenerAdapter.class );
@@ -91,11 +86,39 @@ public class WemListenerAdapter
             {
                 if ( IWemConstants.STRONG.equals( style ) )
                 {
-                    documentHandler.startBold();
+                    ContainerProperties properties = new ContainerProperties( ContainerType.SPAN );
+                    properties.setBold( true );
+                    documentHandler.startSpan( properties );
                 }
                 else if ( IWemConstants.EM.equals( style ) )
                 {
-                    documentHandler.startItalics();
+                    ContainerProperties properties = new ContainerProperties( ContainerType.SPAN );
+                    properties.setItalic( true );
+                    documentHandler.startSpan( properties );
+                }
+                else if ( IWemConstants.INS.equals( style ) )
+                {
+                    ContainerProperties properties = new ContainerProperties( ContainerType.SPAN );
+                    properties.setUnderline( true );
+                    documentHandler.startSpan( properties );
+                }
+                else if ( IWemConstants.STRIKE.equals( style ) )
+                {
+                    ContainerProperties properties = new ContainerProperties( ContainerType.SPAN );
+                    properties.setStrike( true );
+                    documentHandler.startSpan( properties );
+                }
+                else if ( IWemConstants.SUB.equals( style ) )
+                {
+                    ContainerProperties properties = new ContainerProperties( ContainerType.SPAN );
+                    properties.setSubscript( true );
+                    documentHandler.startSpan( properties );
+                }
+                else if ( IWemConstants.SUP.equals( style ) )
+                {
+                    ContainerProperties properties = new ContainerProperties( ContainerType.SPAN );
+                    properties.setSuperscript( true );
+                    documentHandler.startSpan( properties );
                 }
             }
             catch ( IOException e )
@@ -113,13 +136,11 @@ public class WemListenerAdapter
         {
             try
             {
-                if ( IWemConstants.STRONG.equals( style ) )
+                if ( IWemConstants.STRONG.equals( style ) || IWemConstants.EM.equals(
+                        style ) || IWemConstants.INS.equals( style ) || IWemConstants.STRIKE.equals(
+                        style ) || IWemConstants.SUB.equals( style ) || IWemConstants.SUP.equals( style ) )
                 {
-                    documentHandler.endBold();
-                }
-                else if ( IWemConstants.EM.equals( style ) )
-                {
-                    documentHandler.endItalics();
+                    documentHandler.endSpan();
                 }
             }
             catch ( IOException e )
