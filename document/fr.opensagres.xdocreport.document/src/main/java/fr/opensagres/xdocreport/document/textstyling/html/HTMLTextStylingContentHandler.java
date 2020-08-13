@@ -38,7 +38,8 @@ import java.io.IOException;
  * SAX content handler used to parse HTML content and call the right method of {@link IDocumentHandler} according the
  * HTML content.
  */
-public class HTMLTextStylingContentHandler extends DefaultHandler
+public class HTMLTextStylingContentHandler
+    extends DefaultHandler
 {
 
     private static final String STYLE_ATTR = "style";
@@ -128,7 +129,8 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
     }
 
     @Override
-    public void startDocument() throws SAXException
+    public void startDocument()
+        throws SAXException
     {
         super.startDocument();
         try
@@ -142,7 +144,8 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
     }
 
     @Override
-    public void endDocument() throws SAXException
+    public void endDocument()
+        throws SAXException
     {
         super.endDocument();
         try
@@ -156,7 +159,8 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
     }
 
     @Override
-    public void startElement( String uri, String localName, String name, Attributes attributes ) throws SAXException
+    public void startElement( String uri, String localName, String name, Attributes attributes )
+        throws SAXException
     {
         ignoreCharacters = false;
         try
@@ -164,113 +168,119 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
             if ( STRONG_ELT.equals( name ) || B_ELT.equals( name ) )
             {
                 // Bold
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
                 properties.setBold( true );
                 documentHandler.startSpan( properties );
             }
             else if ( EM_ELT.equals( name ) || I_ELT.equals( name ) )
             {
                 // Italic
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
                 properties.setItalic( true );
-                documentHandler.startSpan(properties);
+                documentHandler.startSpan( properties );
             }
             else if ( U_ELT.equals( name ) )
             {
                 // Underline
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
                 properties.setUnderline( true );
-                documentHandler.startSpan(properties);
+                documentHandler.startSpan( properties );
             }
             else if ( STRIKE_ELT.equals( name ) || S_ELT.equals( name ) )
             {
                 // Strike
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
                 properties.setStrike( true );
-                documentHandler.startSpan(properties);
+                documentHandler.startSpan( properties );
             }
             else if ( SUB_ELT.equals( name ) )
             {
                 // Subscript
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
                 properties.setSubscript( true );
-                documentHandler.startSpan(properties);
+                documentHandler.startSpan( properties );
             }
             else if ( SUP_ELT.equals( name ) )
             {
                 // Superscript
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
                 properties.setSuperscript( true );
-                documentHandler.startSpan(properties);
+                documentHandler.startSpan( properties );
             }
             else if ( UL_ELT.equals( name ) )
             {
                 // Unordered List
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.LIST );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.LIST );
                 startList( false, properties );
             }
             else if ( OL_ELT.equals( name ) )
             {
                 // Orderer List
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.LIST );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.LIST );
                 startList( true, properties );
             }
             else if ( LI_ELT.equals( name ) )
             {
                 // List item
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.LIST_ITEM );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.LIST_ITEM );
                 documentHandler.startListItem( properties );
             }
             else if ( P_ELT.equals( name ) )
             {
                 // Paragraph
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.PARAGRAPH );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.PARAGRAPH );
                 documentHandler.startParagraph( properties );
             }
             else if ( H1_ELT.equals( name ) )
             {
                 // Header 1
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.HEADER );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.HEADER );
                 documentHandler.startHeading( 1, properties );
             }
             else if ( H2_ELT.equals( name ) )
             {
                 // Header 2
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.HEADER );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.HEADER );
                 documentHandler.startHeading( 2, properties );
             }
             else if ( H3_ELT.equals( name ) )
             {
                 // Header 3
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.HEADER );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.HEADER );
                 documentHandler.startHeading( 3, properties );
             }
             else if ( H4_ELT.equals( name ) )
             {
                 // Header 4
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.HEADER );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.HEADER );
                 documentHandler.startHeading( 4, properties );
             }
             else if ( H5_ELT.equals( name ) )
             {
                 // Header 5
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.HEADER );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.HEADER );
                 documentHandler.startHeading( 5, properties );
             }
             else if ( H6_ELT.equals( name ) )
             {
                 // Header 6
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.HEADER );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.HEADER );
                 documentHandler.startHeading( 6, properties );
             }
             else if ( A_ELT.equals( name ) )
@@ -287,8 +297,8 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
             else if ( SPAN_ELT.equals( name ) )
             {
                 // <span>
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.SPAN );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.SPAN );
                 documentHandler.startSpan( properties );
             }
             else if ( TABLE_ELT.equals( name ) )
@@ -300,15 +310,15 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
             else if ( TR_ELT.equals( name ) )
             {
                 // <tr>
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.TABLE_ROW );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.TABLE_ROW );
                 documentHandler.startTableRow( properties );
             }
             else if ( TD_ELT.equals( name ) )
             {
                 // <td>
-                ContainerProperties properties = StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ),
-                        ContainerType.TABLE_CELL );
+                ContainerProperties properties =
+                    StylesHelper.createProperties( attributes.getValue( STYLE_ATTR ), ContainerType.TABLE_CELL );
                 documentHandler.startTableCell( properties );
             }
         }
@@ -320,7 +330,8 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
     }
 
     @Override
-    public void endElement( String uri, String localName, String name ) throws SAXException
+    public void endElement( String uri, String localName, String name )
+        throws SAXException
     {
         ignoreCharacters = false;
         try
@@ -447,7 +458,8 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
     }
 
     @Override
-    public void characters( char[] ch, int start, int length ) throws SAXException
+    public void characters( char[] ch, int start, int length )
+        throws SAXException
     {
         if ( !ignoreCharacters )
         {
@@ -470,7 +482,8 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
         super.characters( ch, start, length );
     }
 
-    private void startList( boolean ordered, ContainerProperties properties ) throws IOException
+    private void startList( boolean ordered, ContainerProperties properties )
+        throws IOException
     {
         ignoreCharacters = true;
         if ( ordered )
@@ -483,7 +496,8 @@ public class HTMLTextStylingContentHandler extends DefaultHandler
         }
     }
 
-    private void endList( boolean ordered ) throws IOException
+    private void endList( boolean ordered )
+        throws IOException
     {
         if ( ordered )
         {
