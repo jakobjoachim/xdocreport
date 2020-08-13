@@ -393,7 +393,8 @@ public class ODTDocumentHandler
     public void startSpan( ContainerProperties properties )
         throws IOException
     {
-        internalStartSpan( styleGen.getTextStyleName( properties ), true );
+//        internalStartSpan( styleGen.getTextStyleName( properties ), true );
+        internalStartSpan( getTextDecorationODTStyleNameFromProperties(properties), true );
     }
 
     public void endSpan()
@@ -402,6 +403,39 @@ public class ODTDocumentHandler
         internalEndSpan();
     }
 
+    private String getTextDecorationODTStyleNameFromProperties(ContainerProperties properties) {
+        if(properties == null) 
+        {
+            return null;
+        }
+        if ( properties.isBold() )
+        {
+            return styleGen.getBoldStyleName();
+        }
+        if ( properties.isItalic() )
+        {
+            return styleGen.getItalicStyleName();
+        }
+        if ( properties.isStrike() )
+        {
+            return styleGen.getStrikeStyleName();
+        }
+        if ( properties.isUnderline() )
+        {
+            return styleGen.getUnderlineStyleName();
+        }
+        if ( properties.isSubscript() )
+        {
+            return styleGen.getSubscriptStyleName();
+        }
+        if ( properties.isSuperscript() )
+        {
+            return styleGen.getSuperscriptStyleName();
+        }
+        
+        return null;
+    }
+    
     public void handleReference( String ref, String label )
         throws IOException
     {

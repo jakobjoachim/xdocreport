@@ -382,7 +382,7 @@ public class ODTDefaultStylesGenerator
         return style.toString();
     }
 
-    //@Override
+    @Override
     public String generateAllStyles( ODTDefaultStyle defaultStyle )
     {
         StringBuilder styles = new StringBuilder();
